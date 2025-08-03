@@ -10,6 +10,7 @@ import { AppService } from './app.service';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import appConfig from './config/app.config';
 import { SyslogsModule } from './syslogs/syslogs.module';
+import { MoviesModule } from './movies/movies.module';
 // @ts-ignore
 const mongooseAggregatePaginate = require('mongoose-aggregate-paginate-v2');
 
@@ -57,7 +58,7 @@ const mongooseAggregatePaginate = require('mongoose-aggregate-paginate-v2');
         }
       })
     }),
-
+    MoviesModule,
     SyslogsModule
   ],
   controllers: [AppController],
