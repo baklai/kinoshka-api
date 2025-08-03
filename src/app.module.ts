@@ -3,14 +3,15 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ScheduleModule } from '@nestjs/schedule';
 import { Schema } from 'mongoose';
-import mongooseAggregatePaginate from 'mongoose-aggregate-paginate-v2';
-import mongooseAutopopulate from 'mongoose-autopopulate';
+import * as mongooseAutopopulate from 'mongoose-autopopulate';
 import * as mongoosePaginate from 'mongoose-paginate-v2';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import appConfig from './config/app.config';
 import { SyslogsModule } from './syslogs/syslogs.module';
+// @ts-ignore
+const mongooseAggregatePaginate = require('mongoose-aggregate-paginate-v2');
 
 @Module({
   imports: [
