@@ -17,7 +17,6 @@ export class MoviesController {
 
   @Get()
   async findAll(@Query() query: PaginateQueryDto): Promise<PaginateResult<Movie>> {
-    console.log('sl;dflkjhsldkjf');
     return await this.moviesService.findAll(query);
   }
 
