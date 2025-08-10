@@ -23,9 +23,7 @@ export class LoggerMiddleware implements NestMiddleware {
       const { statusCode } = response;
       const { user = {} } = request;
 
-      this.logger.log(
-        `${ip} [${user && user['fullname'] ? user['fullname'] : 'anonymous'}] ${method} ${statusCode} ${baseUrl}`
-      );
+      this.logger.log(`${ip} ${method} ${statusCode} ${baseUrl} ${params} ${query}`);
 
       await this.syslogsService.create({
         host: ip || '',
