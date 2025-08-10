@@ -23,7 +23,9 @@ export class LoggerMiddleware implements NestMiddleware {
       const { statusCode } = response;
       const { user = {} } = request;
 
-      this.logger.log(`${ip} ${method} ${statusCode} ${baseUrl} ${params} ${query}`);
+      this.logger.log(
+        `${ip} ${method} ${statusCode} ${baseUrl} ${params ? JSON.stringify(params) : ''} ${query ? JSON.stringify(query) : ''}`
+      );
 
       await this.syslogsService.create({
         host: ip || '',
