@@ -1,43 +1,43 @@
 import { IsBoolean, IsNumber, IsOptional } from 'class-validator';
 
 export class PaginateResponseDto {
+  @IsNumber()
   @IsOptional()
-  @IsNumber({}, { message: 'Значення "totalDocs" повинно бути числом.' })
-  totalDocs: number;
+  readonly limit: number;
 
+  @IsNumber()
   @IsOptional()
-  @IsNumber({}, { message: 'Значення "limit" повинно бути числом.' })
-  limit: number;
+  readonly offset: number;
 
+  @IsNumber()
   @IsOptional()
-  @IsNumber({}, { message: 'Значення "offset" повинно бути числом.' })
-  offset: number;
+  readonly page: number;
 
+  @IsBoolean()
   @IsOptional()
-  @IsBoolean({ message: 'Значення "hasPrevPage" повинно бути булевим (true/false).' })
-  hasPrevPage: boolean;
+  readonly hasPrevPage: boolean;
 
+  @IsBoolean()
   @IsOptional()
-  @IsBoolean({ message: 'Значення "hasNextPage" повинно бути булевим (true/false).' })
-  hasNextPage: boolean;
+  readonly hasNextPage: boolean;
 
+  @IsNumber()
   @IsOptional()
-  @IsNumber({}, { message: 'Значення "page" повинно бути числом.' })
-  page: number;
+  readonly totalPages: number;
 
+  @IsNumber()
   @IsOptional()
-  @IsNumber({}, { message: 'Значення "totalPages" повинно бути числом.' })
-  totalPages: number;
+  readonly totalDocs: number;
 
+  @IsNumber()
   @IsOptional()
-  @IsNumber({}, { message: 'Значення "prevPage" повинно бути числом.' })
-  prevPage: number;
+  readonly prevPage: number;
 
+  @IsNumber()
   @IsOptional()
-  @IsNumber({}, { message: 'Значення "nextPage" повинно бути числом.' })
-  nextPage: number;
+  readonly nextPage: number;
 
+  @IsNumber()
   @IsOptional()
-  @IsNumber({}, { message: 'Значення "pagingCounter" повинно бути числом.' })
-  pagingCounter: number;
+  readonly pagingCounter: number;
 }

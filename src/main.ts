@@ -5,8 +5,6 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { json, urlencoded } from 'express';
 import { AppModule } from './app.module';
 
-const GLOBAL_PREFIX = '/api/';
-
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     rawBody: true,
@@ -18,8 +16,6 @@ async function bootstrap() {
 
   app.use(json({ limit: '10mb' }));
   app.use(urlencoded({ limit: '10mb', extended: false }));
-
-  app.setGlobalPrefix(GLOBAL_PREFIX);
 
   app.enableCors({
     origin: true,
@@ -42,7 +38,7 @@ async function bootstrap() {
   const host = configService.get<string>('HOST') || 'localhost';
 
   await app.listen(port, host, async () => {
-    console.info(`Application is running on: ${await app.getUrl()}/api`);
+    console.info(`Application is running on: ${await app.getUrl()}`);
   });
 }
 bootstrap();

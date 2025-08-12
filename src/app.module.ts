@@ -9,10 +9,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import appConfig from './config/app.config';
-import { SyslogsModule } from './syslogs/syslogs.module';
 import { MoviesModule } from './movies/movies.module';
-// @ts-ignore
-const mongooseAggregatePaginate = require('mongoose-aggregate-paginate-v2');
+import { SyslogsModule } from './syslogs/syslogs.module';
 
 @Module({
   imports: [
@@ -51,7 +49,6 @@ const mongooseAggregatePaginate = require('mongoose-aggregate-paginate-v2');
             });
           });
           connection.plugin(mongooseAutopopulate);
-          connection.plugin(mongooseAggregatePaginate);
           connection.plugin(mongoosePaginate);
 
           return connection;

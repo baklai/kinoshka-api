@@ -22,7 +22,7 @@ export class MoviesService {
 
   async findAll(query: PaginateQueryDto): Promise<PaginateResult<Movie>> {
     const {
-      offset = 0,
+      page = 1,
       limit = 5,
       sort = {
         year: -1
@@ -34,7 +34,7 @@ export class MoviesService {
       { ...filters },
       {
         sort,
-        offset,
+        page,
         limit,
         lean: false,
         allowDiskUse: true
