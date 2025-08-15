@@ -20,22 +20,9 @@ export class MoviesController {
     return await this.moviesService.findAll(query);
   }
 
-  @Get('find')
-  async findOneByTitle(
-    @Query('title') title: string,
-    @Query('populate') populate: boolean,
-    @Query('aggregate') aggregate: boolean
-  ): Promise<Movie> {
-    return await this.moviesService.findOneByTitle(title, populate, aggregate);
-  }
-
   @Get(':id')
-  async findOneById(
-    @Param('id') id: string,
-    @Query('populate') populate: boolean,
-    @Query('aggregate') aggregate: boolean
-  ): Promise<Movie> {
-    return await this.moviesService.findOneById(id, populate, aggregate);
+  async findOneById(@Param('id') id: string): Promise<Movie> {
+    return await this.moviesService.findOneById(id);
   }
 
   @Put(':id')

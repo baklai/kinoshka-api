@@ -1,4 +1,4 @@
-import { IsArray, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsBoolean, IsOptional, IsString } from 'class-validator';
 
 export class CreateMovieDto {
   @IsString()
@@ -10,7 +10,7 @@ export class CreateMovieDto {
 
   @IsString()
   @IsOptional()
-  readonly link: string;
+  readonly description: string;
 
   @IsString()
   @IsOptional()
@@ -18,15 +18,15 @@ export class CreateMovieDto {
 
   @IsString()
   @IsOptional()
-  readonly category: string;
-
-  @IsString()
-  @IsOptional()
   readonly quality: string;
 
   @IsString()
   @IsOptional()
-  readonly rating: string;
+  readonly duration: string;
+
+  @IsString()
+  @IsOptional()
+  readonly age: string;
 
   @IsString()
   @IsOptional()
@@ -34,11 +34,23 @@ export class CreateMovieDto {
 
   @IsString()
   @IsOptional()
-  readonly country: string;
+  readonly imdb: string;
 
   @IsString()
   @IsOptional()
-  readonly genres: string;
+  readonly likes: string;
+
+  @IsString()
+  @IsOptional()
+  readonly dislikes: string;
+
+  @IsArray()
+  @IsOptional()
+  readonly categories: string[];
+
+  @IsArray()
+  @IsOptional()
+  readonly genres: string[];
 
   @IsArray()
   @IsOptional()
@@ -48,11 +60,19 @@ export class CreateMovieDto {
   @IsOptional()
   readonly directors: string[];
 
-  @IsString()
+  @IsArray()
   @IsOptional()
-  readonly description: string;
+  readonly countries: string[];
 
   @IsArray()
   @IsOptional()
-  readonly episode: string[];
+  readonly episodes: string[];
+
+  @IsString()
+  @IsOptional()
+  readonly source: string;
+
+  @IsBoolean()
+  @IsOptional()
+  readonly completed: boolean;
 }

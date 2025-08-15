@@ -2,6 +2,7 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 import { InjectModel } from '@nestjs/mongoose';
 import { PaginateModel, PaginateResult, Types } from 'mongoose';
 import { PaginateQueryDto } from 'src/common/dto/paginate-query.dto';
+import { fetchMovieDetails } from 'src/utils/movie.util';
 import { CreateMovieDto } from './dto/create-movies.dto';
 import { UpdateMovieDto } from './dto/update-movies.dto';
 import { Movie } from './schemas/movie.schema';
@@ -42,39 +43,25 @@ export class MoviesService {
     );
   }
 
-  async findOneById(
-    id: string,
-    populate: boolean = false,
-    aggregate: boolean = false
-  ): Promise<Movie | any> {
+  async findOneById(id: string): Promise<Movie | any> {
     if (!Types.ObjectId.isValid(id)) {
       throw new BadRequestException('Недійсний ідентифікатор запису');
     }
 
-    const findMovie = await this.movieModel.findById(id, null, {
-      autopopulate: populate
-    });
+    const findMovie = await this.movieModel.findById(id);
 
     if (!findMovie) {
       throw new NotFoundException('Запис не знайдено');
     }
 
-    return findMovie;
-  }
+    if (!findMovie.completed) {
+      const data: Partial<Movie> | null = await fetchMovieDetails(findMovie.source);
 
-  async findOneByTitle(
-    title: string,
-    populate: boolean = false,
-    aggregate: boolean = false
-  ): Promise<Movie | any> {
-    const findMovie = await this.movieModel
-      .findOne({ title }, null, {
-        autopopulate: populate
-      })
-      .exec();
+      if (!data) {
+        throw new NotFoundException('Запис не знайдено');
+      }
 
-    if (!findMovie) {
-      throw new NotFoundException('Запис не знайдено');
+      return this.updateOneById(id, { ...data, completed: true });
     }
 
     return findMovie;

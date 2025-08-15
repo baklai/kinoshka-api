@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { IsArray, IsDate, IsMongoId, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsBoolean, IsDate, IsMongoId, IsOptional, IsString } from 'class-validator';
 import { HydratedDocument } from 'mongoose';
 
 import { PaginateResponseDto } from 'src/common/dto/paginate-response.dto';
@@ -16,68 +16,93 @@ export class Movie {
 
   @IsString()
   @IsOptional()
-  @Prop({ type: String, required: false, trim: true })
+  @Prop({ type: String, trim: true })
   readonly originalTitle: string;
 
   @IsString()
   @IsOptional()
-  @Prop({ type: String, required: false, trim: true })
-  readonly link: string;
+  @Prop({ type: String, trim: true })
+  readonly description: string;
 
   @IsString()
   @IsOptional()
-  @Prop({ type: String, required: false, trim: true })
+  @Prop({ type: String, trim: true })
   readonly poster: string;
 
   @IsString()
   @IsOptional()
-  @Prop({ type: String, required: false, trim: true })
-  readonly category: string;
-
-  @IsString()
-  @IsOptional()
-  @Prop({ type: String, required: false, trim: true })
+  @Prop({ type: String, trim: true })
   readonly quality: string;
 
   @IsString()
   @IsOptional()
-  @Prop({ type: String, required: false, trim: true })
-  readonly rating: string;
+  @Prop({ type: String, trim: true })
+  readonly duration: string;
 
   @IsString()
   @IsOptional()
-  @Prop({ type: String, required: false, trim: true })
+  @Prop({ type: String, trim: true })
+  readonly age: string;
+
+  @IsString()
+  @IsOptional()
+  @Prop({ type: String, trim: true })
   readonly year: string;
 
   @IsString()
   @IsOptional()
-  @Prop({ type: String, required: false, trim: true })
-  readonly country: string;
+  @Prop({ type: String, trim: true })
+  readonly imdb: string;
 
   @IsString()
   @IsOptional()
-  @Prop({ type: String, required: false, trim: true })
-  readonly genres: string;
+  @Prop({ type: String, trim: true })
+  readonly likes: string;
+
+  @IsString()
+  @IsOptional()
+  @Prop({ type: String, trim: true })
+  readonly dislikes: string;
 
   @IsArray()
   @IsOptional()
-  @Prop({ type: [String], required: false, default: [] })
+  @Prop({ type: [String], default: [] })
+  readonly categories: string[];
+
+  @IsArray()
+  @IsOptional()
+  @Prop({ type: [String], default: [] })
+  readonly genres: string[];
+
+  @IsArray()
+  @IsOptional()
+  @Prop({ type: [String], default: [] })
   readonly actors: string[];
 
   @IsArray()
   @IsOptional()
-  @Prop({ type: [String], required: false, default: [] })
+  @Prop({ type: [String], default: [] })
   readonly directors: string[];
-
-  @IsString()
-  @IsOptional()
-  @Prop({ type: String, required: false, trim: true })
-  readonly description: string;
 
   @IsArray()
   @IsOptional()
-  @Prop({ type: [String], required: false, default: [] })
-  readonly episode: string[];
+  @Prop({ type: [String], default: [] })
+  readonly countries: string[];
+
+  @IsArray()
+  @IsOptional()
+  @Prop({ type: [String], default: [] })
+  readonly episodes: string[];
+
+  @IsString()
+  @IsOptional()
+  @Prop({ type: String, trim: true })
+  readonly source: string;
+
+  @IsBoolean()
+  @IsOptional()
+  @Prop({ type: Boolean, default: false })
+  readonly completed: boolean;
 
   @IsDate()
   @IsOptional()
