@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { IsArray, IsBoolean, IsDate, IsMongoId, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsDate, IsMongoId, IsOptional, IsString } from 'class-validator';
 import { HydratedDocument } from 'mongoose';
 
 import { PaginateResponseDto } from 'src/common/dto/paginate-response.dto';
@@ -67,11 +67,6 @@ export class Movie {
   @IsArray()
   @IsOptional()
   @Prop({ type: [String], default: [] })
-  readonly categories: string[];
-
-  @IsArray()
-  @IsOptional()
-  @Prop({ type: [String], default: [] })
   readonly genres: string[];
 
   @IsArray()
@@ -91,18 +86,16 @@ export class Movie {
 
   @IsArray()
   @IsOptional()
-  @Prop({ type: [String], default: [] })
+  @Prop({
+    type: [{ title: { type: String, trim: true }, source: { type: String, trin: true } }],
+    default: []
+  })
   readonly episodes: string[];
 
   @IsString()
   @IsOptional()
   @Prop({ type: String, trim: true })
   readonly source: string;
-
-  @IsBoolean()
-  @IsOptional()
-  @Prop({ type: Boolean, default: false })
-  readonly completed: boolean;
 
   @IsDate()
   @IsOptional()

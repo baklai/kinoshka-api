@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ScheduleModule } from '@nestjs/schedule';
@@ -63,6 +63,13 @@ import { SyslogsModule } from './syslogs/syslogs.module';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).exclude().forRoutes('*');
+    consumer
+      .apply(LoggerMiddleware)
+      .exclude(
+        { path: 'movies', method: RequestMethod.POST },
+        { path: 'movies/:id', method: RequestMethod.PUT },
+        { path: 'movies/:id', method: RequestMethod.DELETE }
+      )
+      .forRoutes('*');
   }
 }

@@ -1,4 +1,4 @@
-import { IsArray, IsBoolean, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsOptional, IsString } from 'class-validator';
 
 export class CreateMovieDto {
   @IsString()
@@ -46,10 +46,6 @@ export class CreateMovieDto {
 
   @IsArray()
   @IsOptional()
-  readonly categories: string[];
-
-  @IsArray()
-  @IsOptional()
   readonly genres: string[];
 
   @IsArray()
@@ -66,13 +62,9 @@ export class CreateMovieDto {
 
   @IsArray()
   @IsOptional()
-  readonly episodes: string[];
+  readonly episodes: Record<string, any>[];
 
   @IsString()
   @IsOptional()
   readonly source: string;
-
-  @IsBoolean()
-  @IsOptional()
-  readonly completed: boolean;
 }
