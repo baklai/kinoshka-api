@@ -21,14 +21,7 @@ export class MoviesService {
   }
 
   async findAll(query: PaginateQueryDto): Promise<PaginateResult<Movie>> {
-    const {
-      page = 1,
-      limit = 5,
-      sort = {
-        year: -1
-      },
-      filters = {}
-    } = query;
+    const { page = 1, limit = 5, sort = {}, filters = {} } = query;
 
     return await this.movieModel.paginate(
       { ...filters },
