@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-  getAboutAPI(): string {
-    return 'API Kinoshka v1.0';
+  getAboutAPI(): Record<string, any> {
+    return { api: 'API Kinoshka TV', version: '1.0.0.0', datetime: new Date() };
   }
 }
