@@ -1,8 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { PaginateResult } from 'mongoose';
 import { PaginateQueryDto } from 'src/common/dto/paginate-query.dto';
 import { CreateMovieDto } from './dto/create-movies.dto';
-import { UpdateMovieDto } from './dto/update-movies.dto';
 import { MoviesService } from './movies.service';
 import { Movie } from './schemas/movie.schema';
 
@@ -25,16 +24,16 @@ export class MoviesController {
     return await this.moviesService.findOneById(id);
   }
 
-  @Put(':id')
-  async updateOneById(
-    @Param('id') id: string,
-    @Body() updateMovieDto: UpdateMovieDto
-  ): Promise<Movie> {
-    return await this.moviesService.updateOneById(id, updateMovieDto);
-  }
+  // @Put(':id')
+  // async updateOneById(
+  //   @Param('id') id: string,
+  //   @Body() updateMovieDto: UpdateMovieDto
+  // ): Promise<Movie> {
+  //   return await this.moviesService.updateOneById(id, updateMovieDto);
+  // }
 
-  @Delete(':id')
-  async removeOneById(@Param('id') id: string): Promise<Movie> {
-    return await this.moviesService.removeOneById(id);
-  }
+  // @Delete(':id')
+  // async removeOneById(@Param('id') id: string): Promise<Movie> {
+  //   return await this.moviesService.removeOneById(id);
+  // }
 }
