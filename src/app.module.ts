@@ -9,6 +9,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import appConfig from './config/app.config';
+import { GenresModule } from './genres/genres.module';
 import { MoviesModule } from './movies/movies.module';
 import { SyslogsModule } from './syslogs/syslogs.module';
 
@@ -56,7 +57,8 @@ import { SyslogsModule } from './syslogs/syslogs.module';
       })
     }),
     MoviesModule,
-    SyslogsModule
+    SyslogsModule,
+    GenresModule
   ],
   controllers: [AppController],
   providers: [AppService]

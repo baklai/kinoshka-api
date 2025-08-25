@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { PaginateModel, PaginateResult, Types } from 'mongoose';
-import { PaginateQueryDto } from 'src/common/dto/paginate-query.dto';
+import { PaginateQueryDto } from 'src/movies/dto/query-movies.dto';
 import { CreateMovieDto } from './dto/create-movies.dto';
 import { UpdateMovieDto } from './dto/update-movies.dto';
 import { Movie } from './schemas/movie.schema';
@@ -21,18 +21,34 @@ export class MoviesService {
   }
 
   async findAll(query: PaginateQueryDto): Promise<PaginateResult<Movie>> {
-    const { page = 1, limit = 5, sort = {}, filters = {} } = query;
+    const { page = 1, limit = 5, sort: rawSort = {}, filters: rawFilters = {} } = query;
 
-    return await this.movieModel.paginate(
-      { ...filters },
-      {
-        sort,
-        page,
-        limit,
-        lean: false,
-        allowDiskUse: true
-      }
+    const filters = Object.entries(rawFilters).reduce(
+      (acc, [key, value]) => {
+        if (value === undefined) return acc;
+
+        if (['title', 'originalTitle', 'year'].includes(key)) {
+          acc[key] = { $regex: value, $options: 'i' };
+        } else if (['genres', 'countries'].includes(key)) {
+          acc[key] = { $in: value };
+        }
+
+        return acc;
+      },
+      {} as Record<string, any>
     );
+
+    const sort = Object.fromEntries(
+      Object.entries(rawSort).filter(([, value]) => value !== undefined)
+    );
+
+    return await this.movieModel.paginate(filters, {
+      sort,
+      page,
+      limit,
+      lean: false,
+      allowDiskUse: true
+    });
   }
 
   async findOneById(id: string): Promise<Movie | any> {

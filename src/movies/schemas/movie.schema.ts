@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { IsArray, IsDate, IsMongoId, IsOptional, IsString } from 'class-validator';
 import { HydratedDocument } from 'mongoose';
 
-import { PaginateResponseDto } from 'src/common/dto/paginate-response.dto';
+import { PaginateResponseDto } from 'src/movies/dto/paginate-movies.dto';
 
 @Schema()
 export class Movie {

@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { PaginateResult } from 'mongoose';
-import { PaginateQueryDto } from 'src/common/dto/paginate-query.dto';
+import { PaginateQueryDto } from 'src/movies/dto/query-movies.dto';
 import { CreateMovieDto } from './dto/create-movies.dto';
 import { MoviesService } from './movies.service';
 import { Movie } from './schemas/movie.schema';
@@ -16,6 +16,7 @@ export class MoviesController {
 
   @Get()
   async findAll(@Query() query: PaginateQueryDto): Promise<PaginateResult<Movie>> {
+    console.log('query', query);
     return await this.moviesService.findAll(query);
   }
 

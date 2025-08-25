@@ -21,7 +21,6 @@ export class LoggerMiddleware implements NestMiddleware {
 
     response.on('close', async () => {
       const { statusCode } = response;
-      const { user = {} } = request;
 
       this.logger.log(
         `${ip} ${method} ${statusCode} ${baseUrl} ${params ? JSON.stringify(params) : ''} ${query ? JSON.stringify(query) : ''}`

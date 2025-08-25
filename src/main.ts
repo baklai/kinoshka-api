@@ -14,13 +14,15 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
 
-  app.use(json({ limit: '10mb' }));
-  app.use(urlencoded({ limit: '10mb', extended: false }));
-
   app.enableCors({
     origin: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS'
   });
+
+  app.set('query parser', 'extended');
+
+  app.use(json({ limit: '1mb' }));
+  app.use(urlencoded({ limit: '1mb', extended: true }));
 
   app.useGlobalPipes(
     new ValidationPipe({
